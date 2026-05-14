@@ -1,0 +1,53 @@
+# Instructions for Running demo2 (Vector DB Example)
+
+## Prerequisites
+- Python 3.8 or higher installed
+- Git installed
+- Internet connection to install dependencies
+
+## 1. Clone the Repository
+If you haven't already, clone the repository:
+
+    git clone https://github.com/sheikh1971/Langchain_Chatbot_Demo.git
+    cd Langchain_Chatbot_Demo
+
+## 2. Create and Activate a Virtual Environment (Recommended)
+
+    python -m venv venv
+    # On Windows:
+    venv\Scripts\activate
+    # On Mac/Linux:
+    source venv/bin/activate
+
+## 3. Install Required Packages
+
+Install dependencies listed in requirement.txt:
+
+    pip install -r chatbotdemo/requirement.txt
+
+## 4. Prepare the Vector Database
+- The demo uses a local Chroma vector database. The database files are already included in the `chroma_db` folders.
+- No extra setup is needed unless you want to start fresh (delete the `chroma_db` folders to reset).
+
+## 5. Run the Streamlit Demo
+
+    cd chatbotdemo/demo2
+    streamlit run rag_demo_streamlit.py
+
+- This will open a web browser with the chatbot interface.
+
+## 6. Files Overview
+- `rag_demo_streamlit.py`: Main Streamlit app for the chatbot with vector DB.
+- `rag_demo.ipynb`: Jupyter notebook version for experimentation.
+- `chroma_db/`: Local vector database files (auto-created/used by the app).
+
+## 7. Usage
+- Interact with the chatbot in your browser.
+- You can modify the code or database as needed for your use case.
+
+## 8. Troubleshooting
+- If you get missing package errors, install them manually with pip.
+- If Streamlit does not open, check your Python environment and ensure all dependencies are installed.
+
+---
+For any issues, refer to the README.md or open an issue on the GitHub repository.
