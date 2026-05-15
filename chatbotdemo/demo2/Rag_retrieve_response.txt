@@ -1,0 +1,80 @@
+RAG RETRIEVE RESPONSE - BEGINNER GUIDE
+
+1) What you have in this project
+- Notebook for experimentation and learning:
+  demo2/rag_demo.ipynb
+- Streamlit app for a UI experience:
+  demo2/Rag_Retrieve_Response.py
+- Source documents used by both flows:
+  public/demo_file.txt
+  public/AI-Based_Mental_Health_Chatbot_using_LangChain_and.pdf
+
+2) Why these tools are used
+- TextLoader and PyPDFLoader:
+  To load content from .txt and .pdf files.
+- RecursiveCharacterTextSplitter:
+  To split long content into smaller chunks so retrieval is better.
+- NVIDIAEmbeddings (nvidia/nv-embed-v1):
+  To convert text chunks into vectors for semantic search.
+- Chroma vector store:
+  To store and retrieve chunks quickly by meaning.
+- NVIDIARerank (nv-rerank-qa-mistral-4b:1):
+  To reorder retrieved chunks so the most relevant ones come first.
+- ChatGoogleGenerativeAI (gemini-flash-latest):
+  To generate final natural language answers using the retrieved context.
+- Prompt template with {context} and {question}:
+  Ensures the LLM answers from your documents instead of guessing.
+
+3) What should be in your .env file
+Use placeholders below and replace with your own keys:
+
+GOOGLE_API_KEY=your_google_gemini_key
+NVIDIA_API_KEY=your_nvidia_embedding_key
+NVIDIA_RETRIEVER=your_nvidia_reranker_key
+
+Notes:
+- GOOGLE_API_KEY is required for Gemini LLM.
+- NVIDIA_API_KEY is required for embeddings.
+- NVIDIA_RETRIEVER is optional in this Streamlit app.
+  If missing, retrieval still works but reranking is skipped.
+
+4) How to use the notebook (rag_demo.ipynb)
+- Purpose:
+  Learning and step-by-step debugging.
+- Typical run order:
+  1. Load env vars and API keys.
+  2. Load txt/web/pdf data.
+  3. Chunk data and build Chroma index.
+  4. Test similarity search.
+  5. Build prompt + retriever + reranker + LLM.
+  6. Ask a question and inspect answer.
+- If output says model has no context:
+  Check that prompt includes {context} and context is not empty.
+
+5) How to use the Streamlit app (Rag_Retrieve_Response.py)
+From project root, run:
+
+streamlit run chatbotdemo/demo2/Rag_Retrieve_Response.py
+
+What you will see:
+- A question box.
+- "Get Answer" button.
+- Context panel showing what was sent to the LLM.
+- Top retrieved docs panel for transparency.
+- Sidebar status for file presence and a "Rebuild Index" button.
+
+6) Beginner-friendly workflow suggestion
+- Start in notebook to understand each building block.
+- Move to Streamlit app once retrieval + prompt are stable.
+- Keep your context visible while debugging.
+- If answers look generic, verify retrieval quality and prompt context.
+
+7) Common issues and fixes
+- API key error:
+  Ensure .env variable names are exact and load_dotenv() is executed.
+- "No relevant context found":
+  Check that txt/pdf files exist and were loaded.
+- Generic LLM response:
+  Usually context is empty or prompt does not include context.
+- Slow first run:
+  First index build takes time; later runs are faster due to cache.
